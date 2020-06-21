@@ -25,5 +25,4 @@ class FeedViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         navigationItem.titleView = imageView
     }
-  
-}
+ }
