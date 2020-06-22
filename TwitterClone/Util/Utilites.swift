@@ -33,6 +33,7 @@ class Utilites{
     func inputTextField(withPlaceholder placeholder:String) -> UITextField{
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
+        textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         return textField
     }
