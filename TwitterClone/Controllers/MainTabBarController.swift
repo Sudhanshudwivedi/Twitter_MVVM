@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+import Firebase
 class MainTabBarController: UITabBarController {
-
+    
     //MARK: Properties
     
     let actionButton:UIButton = {
@@ -25,18 +25,50 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
-        configureUI()
+        view.backgroundColor = .white
+        authenticateUserAndConfigureUI()
     }
-     
+    
     
     //MARK: Selectors
-    
     @objc func actionButtonTap(){
         print("Debug:MainTabBar -Action Button Tap")
     }
     
-    //MARK: Helpers
+    //MARK:Api's
+
+    func authenticateUserAndConfigureUI(){
+        
+        if (Auth.auth().currentUser == nil) {
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+        } else{
+            print("Debug : User is currently logged In")
+            configureViewController()
+            configureUI()
+            fetchUser()
+        }
+    }
+    
+    
+    func fetchUser(){
+        UsersService.shared.fetchUser()
+    }
+    
+    
+    func logUserOut(){
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print("Debug : Failed to signout with error \(error.localizedDescription)")
+        }
+    }
+    
+    
+        //MARK: Helpers
     
     func configureUI(){
         

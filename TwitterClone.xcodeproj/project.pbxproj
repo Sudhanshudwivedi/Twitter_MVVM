@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4805A67F24A0F35A00E64E05 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4805A67E24A0F35A00E64E05 /* Constant.swift */; };
 		482DA20A249E4C1900F77BCF /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482DA209249E4C1900F77BCF /* MainTabBarController.swift */; };
+		483555CF24A8B47600D53180 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483555CE24A8B47600D53180 /* AuthService.swift */; };
+		483555D124A8ED1B00D53180 /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483555D024A8ED1B00D53180 /* UsersService.swift */; };
 		48812415249E7BF00024A3DD /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48812414249E7BF00024A3DD /* FeedViewController.swift */; };
 		48812417249E7D310024A3DD /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48812416249E7D310024A3DD /* ExploreViewController.swift */; };
 		48812419249E7D500024A3DD /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48812418249E7D500024A3DD /* NotificationsViewController.swift */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		4805A67E24A0F35A00E64E05 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		482DA209249E4C1900F77BCF /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		483555CE24A8B47600D53180 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		483555D024A8ED1B00D53180 /* UsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		48812414249E7BF00024A3DD /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		48812416249E7D310024A3DD /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		48812418249E7D500024A3DD /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 		482DA204249E256300F77BCF /* API */ = {
 			isa = PBXGroup;
 			children = (
+				483555CE24A8B47600D53180 /* AuthService.swift */,
+				483555D024A8ED1B00D53180 /* UsersService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -281,11 +287,13 @@
 				4889B831249F7D9A003612EB /* SignupController.swift in Sources */,
 				4889B833249F94E8003612EB /* Utilites.swift in Sources */,
 				48812417249E7D310024A3DD /* ExploreViewController.swift in Sources */,
+				483555CF24A8B47600D53180 /* AuthService.swift in Sources */,
 				4889B82F249F7D3B003612EB /* LoginController.swift in Sources */,
 				48812419249E7D500024A3DD /* NotificationsViewController.swift in Sources */,
 				48812415249E7BF00024A3DD /* FeedViewController.swift in Sources */,
 				482DA20A249E4C1900F77BCF /* MainTabBarController.swift in Sources */,
 				4889B82C249F5A16003612EB /* Extension.swift in Sources */,
+				483555D124A8ED1B00D53180 /* UsersService.swift in Sources */,
 				4805A67F24A0F35A00E64E05 /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

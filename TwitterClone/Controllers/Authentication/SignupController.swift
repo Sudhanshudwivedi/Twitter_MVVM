@@ -108,34 +108,17 @@ class SignupController : UIViewController{
         guard let username = userNameTextfield.text else {return}
         guard let fullname = fullNameTextfield.text else {return}
         
-        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else {return}
-        let fileName = NSUUID().uuidString
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         
-        let storage_Ref = STORAGE_PROFILE_IMAGE.child(fileName)
-        
-        storage_Ref.putData(imageData, metadata: nil) { (data, error) in
-            storage_Ref.downloadURL { (URL, error) in
-                guard let profileImageUrl = URL?.absoluteString else { return }
-                
-                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                    if let error = error{
-                        print("Debug:\(error.localizedDescription)")
-                        return
-                    }
-                    
-                    guard let uid = result?.user.uid else {return}
-                    let values = ["email":email,"username":username,"fullname":fullname,"profileImageUrl":profileImageUrl]
-                    
-                    REF_USER.child(uid).updateChildValues(values) { (error, ref) in
-                        
-                        print("Debug:Sucessfully registered")
-                        
-                    }
-                }
-
-            }
+        AuthService.sharedInstance.registerUser(credentials: credentials) { (error, DatabaseRef) in
+            print("Debug : SignUp Successfull")
+            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            guard let tab  = window?.rootViewController as? MainTabBarController else { return}
+            
+            tab.authenticateUserAndConfigureUI()
+            self.dismiss(animated: true, completion: nil)
+            
         }
-        
     }
     
     @objc func plusPhotoButtonTap(){

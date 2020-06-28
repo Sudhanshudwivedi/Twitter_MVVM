@@ -69,7 +69,20 @@ class LoginController:UIViewController{
     //MARK: Selectors
     
     @objc func loginButtonTap(){
-        print("Debug:LoginController - loginButtonTap")
+        guard let email = emailTextField.text ,let password = passwordTextField.text else {return}
+        AuthService.sharedInstance.loginUser(withEmail: email, password: password) { (result, error) in
+            if let error = error{
+                print("Debug : Error in login due to \(error.localizedDescription)")
+                return
+            }
+            
+            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            guard let tab  = window?.rootViewController as? MainTabBarController else { return}
+            
+            tab.authenticateUserAndConfigureUI()
+            self.dismiss(animated: true, completion: nil)
+            
+        }
     }
     
     @objc func donthaveAccountTap(){
