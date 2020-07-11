@@ -7,22 +7,54 @@
 //
 
 import UIKit
-
+import SDWebImage
 class FeedViewController: UIViewController {
 
-    //MARK: Properties
-    //MARK: LifeCycle
+    //MARK:- Properties
+    
+    var user:User?{
+        didSet{
+            configureLeftBarItem()
+        }
+    }
+    //MARK:- LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        fetchTweets()
     }
     
-    //MARK: Helpers
+    
+    //MARK:Api
+    func fetchTweets(){
+        TweetService.shared.fetchTweets { (tweet) in
+            print("Debug: \(tweet)")
+        }
+    }
+    
+    //MARK:- Helpers
     func setupUI(){
         view.backgroundColor = .white
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
         imageView.contentMode = .scaleAspectFit
+        imageView.setDimensions(width: 44, height: 44 )
         navigationItem.titleView = imageView
+        
+
+    }
+    
+    func configureLeftBarItem(){
+        guard let user = user else { return }
+        
+        let profileImageView  = UIImageView()
+        profileImageView.contentMode  = .scaleToFill
+        profileImageView.backgroundColor = .blue
+        profileImageView.setDimensions(width: 32, height: 32)
+        profileImageView.layer.cornerRadius = 32/2
+        profileImageView.layer.masksToBounds = true
+        profileImageView.clipsToBounds = true
+        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
+        navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: profileImageView)
     }
  }

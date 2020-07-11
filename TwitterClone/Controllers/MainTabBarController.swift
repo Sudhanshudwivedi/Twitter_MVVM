@@ -10,8 +10,15 @@ import UIKit
 import Firebase
 class MainTabBarController: UITabBarController {
     
-    //MARK: Properties
+    //MARK:- Properties
     
+    var user:User?{
+        didSet{
+            guard let nav = viewControllers?[0] as? UINavigationController else{return}
+            guard let feed = nav.viewControllers.first as? FeedViewController else{return}
+            feed.user = user
+        }
+    }
     let actionButton:UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -21,7 +28,7 @@ class MainTabBarController: UITabBarController {
         return button
     }()
     
-    //MARK: LifeCycle
+    //MARK:- LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +39,15 @@ class MainTabBarController: UITabBarController {
     
     //MARK: Selectors
     @objc func actionButtonTap(){
-        print("Debug:MainTabBar -Action Button Tap")
+        guard let user = self.user else {return}
+        let viewController = UploadTweetController(user: user)
+        let nav =  UINavigationController(rootViewController: viewController)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true, completion: nil)
+        
     }
     
-    //MARK:Api's
+    //MARK:-Api's
 
     func authenticateUserAndConfigureUI(){
         
@@ -55,7 +67,9 @@ class MainTabBarController: UITabBarController {
     
     
     func fetchUser(){
-        UsersService.shared.fetchUser()
+        UsersService.shared.fetchUser { user in
+            self.user = user
+        }
     }
     
     
@@ -68,7 +82,7 @@ class MainTabBarController: UITabBarController {
     }
     
     
-        //MARK: Helpers
+        //MARK:- Helpers
     
     func configureUI(){
         

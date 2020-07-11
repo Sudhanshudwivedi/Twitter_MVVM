@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9CC046D1-AC50-4ACA-B95A-BBB922716CB5"
+            uuid = "69794F0F-F4F1-458C-A652-420D866415E4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TwitterClone/API/UsersService.swift"
+            filePath = "TwitterClone/Controllers/FeedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "fetchUser()"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "fetchTweets()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

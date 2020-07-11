@@ -69,7 +69,6 @@ class SignupController : UIViewController{
     }()
     
     
-    
     private lazy var registrationButton : UIButton = {
         let button  = UIButton(type: .system)
         button.setTitle("SignUp", for: .normal)
@@ -80,7 +79,6 @@ class SignupController : UIViewController{
         button.addTarget(self, action: #selector(registrationButtonTap), for: .touchUpInside)
         return button
     }()
-    
     
     
     private lazy var donthaveAccountButton : UIButton = {

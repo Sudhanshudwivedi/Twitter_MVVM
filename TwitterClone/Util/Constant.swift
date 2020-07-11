@@ -14,3 +14,4 @@ let STORAGE_PROFILE_IMAGE = STORAGE_REF.child("profile_image")
 
 let DEB_REF = Database.database().reference()
 let REF_USER = DEB_REF.child("users")
+let REF_TWEET = DEB_REF.child("tweets")
