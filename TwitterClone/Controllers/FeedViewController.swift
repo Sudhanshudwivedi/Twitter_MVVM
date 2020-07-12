@@ -28,7 +28,7 @@ class FeedViewController: UICollectionViewController {
     }
     
     
-    //MARK:Api
+    //MARK:Api's
     func fetchTweets(){
         TweetService.shared.fetchTweets { (tweet) in
             print("Debug: \(tweet)")
