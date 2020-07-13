@@ -11,8 +11,7 @@ import Firebase
 struct UsersService {
     static let shared = UsersService()
     
-    func fetchUser(completion : @escaping(User)->Void){
-        guard let uid = Auth.auth().currentUser?.uid else { return}
+    func fetchUser(with uid : String , completion : @escaping(User)->Void){
         
         REF_USER.child(uid).observeSingleEvent(of: .value) { (snapshot) in
             print("DEBUG : Snapshot is \(snapshot)")

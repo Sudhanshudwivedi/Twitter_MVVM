@@ -19,6 +19,12 @@ class FeedViewController: UICollectionViewController {
             configureLeftBarItem()
         }
     }
+    
+    private var tweets = [Tweet](){
+        didSet{
+            collectionView.reloadData()
+        }
+    }
     //MARK:- LifeCycle
     
     override func viewDidLoad() {
@@ -31,7 +37,7 @@ class FeedViewController: UICollectionViewController {
     //MARK:Api's
     func fetchTweets(){
         TweetService.shared.fetchTweets { (tweet) in
-            print("Debug: \(tweet)")
+            self.tweets = tweet
         }
     }
     
@@ -54,7 +60,6 @@ class FeedViewController: UICollectionViewController {
         
         let profileImageView  = UIImageView()
         profileImageView.contentMode  = .scaleToFill
-        profileImageView.backgroundColor = .blue
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32/2
         profileImageView.layer.masksToBounds = true
@@ -64,18 +69,21 @@ class FeedViewController: UICollectionViewController {
     }
  }
 
+
+//MARK:- UICOllectionView Delegate/DataSource
 extension FeedViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return tweets.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resuseIndentifier, for: indexPath) as! TweetCell
-        
+        cell.tweet = tweets[indexPath.row]
         return cell
     }
 }
 
+//MARK:UICollectionView DelegateFlowLayout
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)

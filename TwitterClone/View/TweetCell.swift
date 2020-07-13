@@ -9,127 +9,128 @@
 import Foundation
 import UIKit
 
-
-
-
 class TweetCell: UICollectionViewCell {
-
-// MARK: - Properties
-
-
-private lazy var profileImageView: UIImageView = {
-    let iv = UIImageView()
-    iv.contentMode = .scaleAspectFit
-    iv.clipsToBounds = true
-    iv.setDimensions(width: 48, height: 48)
-    iv.layer.cornerRadius = 48 / 2
-    iv.backgroundColor = .twitterBlue
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
-    iv.addGestureRecognizer(tap)
-    iv.isUserInteractionEnabled = true
+    // MARK: - Properties
     
-    return iv
-}()
-
-private let captionLabel: UILabel = {
-    let label = UILabel()
-    label.font = UIFont.systemFont(ofSize: 14)
-    label.numberOfLines = 0
-    label.text = "Some test caption"
+    var tweet : Tweet?{
+        didSet{
+            configureUI()
+        }
+    }
     
-    return label
-}()
-
-private lazy var commentButton: UIButton = {
-    let button = createButton(withImageName: "comment")
-    button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
-    return button
-}()
-
-private lazy var retweetButton: UIButton = {
-    let button = createButton(withImageName: "retweet")
-    button.addTarget(self, action: #selector(handleRetweetTapped), for: .touchUpInside)
-    return button
-}()
-
-private lazy var likeButton: UIButton = {
-    let button = createButton(withImageName: "like")
-    button.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
-    return button
-}()
-
-private lazy var shareButton: UIButton = {
-    let button = createButton(withImageName: "share")
-    button.addTarget(self, action: #selector(handleShareTapped), for: .touchUpInside)
-    return button
-}()
-
-private let infoLabel = UILabel()
-
-// MARK: - Lifecycle
-override init(frame: CGRect) {
-    super.init(frame: frame)
+    private lazy var profileImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.setDimensions(width: 48, height: 48)
+        iv.layer.cornerRadius = 48 / 2
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
+        iv.addGestureRecognizer(tap)
+        iv.isUserInteractionEnabled = true
+        
+        return iv
+    }()
     
-    backgroundColor = .white
+    private let captionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.numberOfLines = 0
+        label.text = "Some test caption"
+        
+        return label
+    }()
     
-    addSubview(profileImageView)
-    profileImageView.anchor(top: topAnchor, left: leftAnchor,
-                            paddingTop: 8, paddingLeft: 8)
-    let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
-    stack.axis = .vertical
-    stack.distribution = .fillProportionally
-    stack.spacing = 4
+    private lazy var commentButton: UIButton = {
+        let button = createButton(withImageName: "comment")
+        button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
+        return button
+    }()
     
-    addSubview(stack)
-    stack.anchor(top: profileImageView.topAnchor,
-                 left: profileImageView.rightAnchor, right: rightAnchor,
-                 paddingLeft: 12, paddingRight: 12)
+    private lazy var retweetButton: UIButton = {
+        let button = createButton(withImageName: "retweet")
+        button.addTarget(self, action: #selector(handleRetweetTapped), for: .touchUpInside)
+        return button
+    }()
     
-    infoLabel.font = UIFont.systemFont(ofSize: 14)
-    infoLabel.text = "Eddie Brock @venom"
+    private lazy var likeButton: UIButton = {
+        let button = createButton(withImageName: "like")
+        button.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
+        return button
+    }()
     
-    let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton,
-                                                     likeButton, shareButton])
-    actionStack.axis = .horizontal
-    actionStack.spacing = 72
+    private lazy var shareButton: UIButton = {
+        let button = createButton(withImageName: "share")
+        button.addTarget(self, action: #selector(handleShareTapped), for: .touchUpInside)
+        return button
+    }()
     
-    addSubview(actionStack)
-    actionStack.centerX(inView: self)
-    actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
+    private let infoLabel = UILabel()
     
-    let underlineView = UIView()
-    underlineView.backgroundColor = .systemGroupedBackground
-    addSubview(underlineView)
-    underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
-                         right: rightAnchor, height: 1)
-}
-
-required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-}
-
-// MARK: - Selectors
-
-@objc func handleProfileImageTapped() {
-}
-
-@objc func handleCommentTapped() {
+    // MARK: - Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = .white
+        
+        addSubview(profileImageView)
+        profileImageView.anchor(top: topAnchor, left: leftAnchor,
+                                paddingTop: 8, paddingLeft: 8)
+        let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
+        stack.axis = .vertical
+        stack.distribution = .fillProportionally
+        stack.spacing = 4
+        
+        addSubview(stack)
+        stack.anchor(top: profileImageView.topAnchor,
+                     left: profileImageView.rightAnchor, right: rightAnchor,
+                     paddingLeft: 12, paddingRight: 12)
+        
+        infoLabel.font = UIFont.systemFont(ofSize: 14)
+        infoLabel.text = "Eddie Brock @venom"
+        
+        let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton,
+                                                         likeButton, shareButton])
+        actionStack.axis = .horizontal
+        actionStack.spacing = 72
+        
+        addSubview(actionStack)
+        actionStack.centerX(inView: self)
+        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
+        
+        let underlineView = UIView()
+        underlineView.backgroundColor = .systemGroupedBackground
+        addSubview(underlineView)
+        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,
+                             right: rightAnchor, height: 1)
+    }
     
-}
-
-@objc func handleRetweetTapped() {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-}
-
-@objc func handleLikeTapped() {
+    // MARK: - Selectors
     
-}
-
-@objc func handleShareTapped() {
+    @objc func handleProfileImageTapped() {
+    }
     
-}
-//MARK:- Helper
+    @objc func handleCommentTapped() {
+        
+    }
+    
+    @objc func handleRetweetTapped() {
+        
+    }
+    
+    @objc func handleLikeTapped() {
+        
+    }
+    
+    @objc func handleShareTapped() {
+        
+    }
+    //MARK:- Helper
     
     func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
@@ -137,5 +138,13 @@ required init?(coder: NSCoder) {
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
         return button
+    }
+    
+    func configureUI(){
+        guard let tweet  = tweet else { return }
+        let viewModel = TweetViewModel(tweet: tweet)
+        captionLabel.text = tweet.caption
+        infoLabel.attributedText = viewModel.userInfoText
+        profileImageView.sd_setImage(with:viewModel.profileImageUrl, completed: nil)
     }
 }
